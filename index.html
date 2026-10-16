@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>دستیار — دستیار صوتی فارسی برای اندروید</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>«دستیار»</h1>
+    <p>دستیار صوتی فارسی برای اندروید؛ با نوشتن یا حرف زدن.</p>
+    <nav>
+      <a href="index.html">دانلود</a>
+      <a href="changes.html">تغییرات</a>
+      <a href="key.html">گرفتن کلید</a>
+      <a href="privacy.html">حریم خصوصی</a>
+      <a href="restricted.html">تنظیمات محدودشده</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>دانلود</h2>
+    <p>آخرین نسخه: <strong id="version">…</strong> <span id="notes" class="muted"></span></p>
+    <p><a id="download" class="button" href="changes.html">دانلود فایل نصب</a></p>
+    <noscript><p class="muted">اگر لینک کار نکرد، از صفحه «تغییرات» نسخه آخر را پیدا کن.</p></noscript>
+    <p class="muted">نصب: فایل را باز کن و اگر گوشی پرسید، اجازه «نصب از منابع ناشناس» را بده. برای آپدیت، نسخه تازه را روی همان قبلی نصب کن؛ پاکش نکن تا یادآوری‌ها و کلیدت بمانند. خود اپ هم وقتی نسخه تازه بیاید خبر می‌دهد.</p>
+  </section>
+
+  <section>
+    <h2>چه کارهایی می‌کند</h2>
+    <ul>
+      <li>آلارم در اپ ساعت گوشی: «فردا ساعت ۷ بیدارم کن».</li>
+      <li>یادآوری سر وقت، حتی با اپ بسته: «یک ساعت دیگه یادم بنداز آب بخورم».</li>
+      <li>تماس با پرسیدن قبلش: «به علی زنگ بزن».</li>
+      <li>باز کردن اپ‌ها: «تلگرام رو باز کن».</li>
+      <li>حافظه: «یادت باشه مامانم یعنی …»، «چی درباره من می‌دونی؟».</li>
+      <li>با نگه داشتن دکمه پاور از هر جای گوشی، حتی روی صفحه قفل (اگر دستیار پیش‌فرض گوشی‌اش کنی؛ راهنما داخل تنظیمات اپ است).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>چه لازم است</h2>
+    <ul>
+      <li>اندروید ۸ به بالا و اینترنت. برای سرویس‌های خارجی ممکن است VPN لازم باشد.</li>
+      <li>یک کلید OpenRouter از حسابی که اعتبار خریده: <a href="key.html">راهنمای گرفتن کلید</a>.</li>
+      <li>برای حرف زدن: سرویس تشخیص گفتار گوشی، معمولاً اپ Google.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>اطمینان از فایل</h2>
+    <p class="muted">همه نسخه‌ها با یک کلید امضا شده‌اند. اگر خواستی مطمئن شوی فایل دست‌کاری نشده، اثر انگشت SHA-256 امضای آن باید این باشد:</p>
+    <p><span class="ltr">0447ccfd594c8f90383087b930e481c9944aed379711fc1d4aaa34839e54880f</span></p>
+    <p class="muted">فایلی با امضای دیگر را نصب نکن؛ روی نسخه قبلی هم نصب نمی‌شود.</p>
+  </section>
+
+  <footer>این سایت هیچ کوکی، آمار یا ردیابی ندارد.</footer>
+</main>
+<script>
+  // آخرین نسخه از همان فایلی که خود اپ می‌خواند (version.json)؛ یک جا برای عوض کردن.
+  (function () {
+    var digits = '۰۱۲۳۴۵۶۷۸۹';
+    function fa(text) { return String(text).replace(/[0-9]/g, function (d) { return digits[d]; }); }
+    fetch('version.json', { cache: 'no-store' })
+      .then(function (response) { return response.json(); })
+      .then(function (info) {
+        document.getElementById('version').textContent = fa(info.versionName);
+        if (info.notes) document.getElementById('notes').textContent = '— ' + info.notes;
+        if (typeof info.url === 'string' && info.url.indexOf('https://') === 0) {
+          document.getElementById('download').href = info.url;
+        }
+      })
+      .catch(function () { document.getElementById('version').textContent = 'نامعلوم'; });
+  })();
+</script>
+</body>
+</html>
